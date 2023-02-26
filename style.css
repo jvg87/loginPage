@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+    --cor1: #e4e4e4;
+    --cor2: #020410
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: #020410;
+}
+
+/* -------------------------------HEADER------------------------------- */
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 6.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    z-index: 1;
+}
+
+.logo{
+    font-size: 2rem;
+    user-select: none;
+    text-transform: uppercase;
+    color: #e4e4e4;
+}
+
+.navigation{
+    display: flex;
+    gap: 40px;
+}
+
+.navigation a{
+    position: relative;
+    color: #e4e4e4;
+    font-size: 1.2rem;
+    text-decoration: none;
+    font-weight: 500;
+    /* margin-left: 40px; */
+}
+
+.navigation a::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #e4e4e4;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform .3s
+}
+
+.navigation a:hover::after{
+    transform: scaleX(1);
+}
+
+header input{
+    width: 130px;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid #e4e4e4;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #e4e4e4;
+    font-weight: 500;
+    transition: .3s;
+}
+
+header input:hover{
+    background-color: #e4e4e4;
+    color: rgba(0, 0, 0, 0.548);
+}
+
+.mobileMenu{
+    cursor: pointer;
+    display: none;
+}
+
+.mobileMenu div{
+    position: relative;
+    width: 32px;
+    height: 2px;
+    background: #e4e4e4;
+    margin: 8px;
+    transition: transform .5s;
+}
+
+@media screen and (max-width: 1000px) {
+    header{
+        padding: 1.5rem 4.5rem;
+        transition: .3s;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    header{
+        padding: 1rem 2.5rem;
+        transition: .3s;
+    }
+
+    .mobileMenu{
+        display: block;
+    }
+
+    .navigation{
+        position: absolute;
+        top: 100%;
+        width: 100vw;
+        height: 100vh;
+        right: 0;
+        background-color: #020410;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 100px;
+        gap: 50px;
+        transform: translateX(100%);
+        transition: transform .3s ease-in;
+    }
+
+    .navigation.showMenu {
+        transform: translateX(0);
+    }
+
+    .mobileMenu.showMenu .line1 {
+        background-color: transparent;        
+    }
+    
+    .mobileMenu.showMenu .line2{
+        transform: rotate(135deg);        
+    }
+    
+    .mobileMenu.showMenu .line3{
+        transform: rotate(-135deg);
+        top: -10px;
+    }
+}
+
+/* -------------------------------DIV LOGIN/REGISTER------------------------------- */
+
+#containerLoginRegister{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(images/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#contentLoginRegister{
+    width: 75vw;
+    height: 70vh;
+    background-image: url(images/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+    display: flex;
+}
+
+#textBox{
+    width: 58%;
+    height: 100%;
+    background-color: transparent;
+    padding: 80px;
+    color: #e4e4e4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#company{
+    font-size: 30px;
+}
+
+#textDescrition h2{
+    font-size: 40px;
+    line-height: 1;
+}
+
+#textDescrition h2 span{
+    font-size: 25px;
+}
+
+#textDescrition p {
+    font-size: 1rem;
+}
+
+#socioaMedias a i{
+    font-size: 22px;
+    color: #e4e4e4;
+    margin-right: 10px;
+    transition: .5s ease;
+}
+
+#socioaMedias a:hover i{
+    transform: scale(1.2);
+}
+
+#containerForm{
+    width: calc(100% - 58%);
+    height: 100%;
+    background-color: transparent;
+}
+
+.formBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #e4e4e4;
+}
+
+.formBox h2{
+    font-size: 32px;
+    text-align: center;
+}
+
+.inputBox{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.inputBox label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--cor1);
+    font-weight: 500;
+    pointer-events: none;
+    transition: .3s;
+}
+
+.inputBox input:focus~label,
+.inputBox input:valid~label{
+    top: -5px;
+}
+
+.inputBox input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--cor1);
+    outline: none;
+    font-size: 1rem;
+    color: var(--cor1);
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+
+.inputBox .icon{
+    position: absolute;
+    right: 8px;
+    font-size: 1.2rem;
+    color: var(--cor1);
+    line-height: 57px;
+}
+
+.fa-eye, .fa-eye-slash{
+    cursor: pointer;
+}
+
+.remember{
+    font-size: .9rem;
+    color: var(--cor1);
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember label input{
+    accent-color: var(--cor1);
+    margin-right: 3px;
+}
+
+.remember a{
+    text-decoration: none;
+    color: var(--cor1);
+}
+
+.remember a:hover{
+    text-decoration: underline;
+}
+
+.submit{
+    width: 100%;
+    height: 45px;
+    border: none;
+    outline: none;
+    background-color: #c4103d;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--cor1);
+    font-weight: 500;
+    transition: .3s ease;
+}
+
+.submit:hover{
+    transform: scale(1.2);
+}
+
+.loginRegister{
+    font-size: .9rem;
+    color: var(--cor1);
+    text-align: center;
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+.loginRegister a{
+    color: var(--cor1);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.loginRegister a:hover{
+    text-decoration: underline;
+}
