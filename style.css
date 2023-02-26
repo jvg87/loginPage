@@ -154,13 +154,34 @@ header input:hover{
 
 /* -------------------------------DIV LOGIN/REGISTER------------------------------- */
 
+
 .background{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     background-image: url(images/background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    transition: .5s ease;
+}
+
+.background h2{
+    font-size: 45px;
+    text-align: center;
+    color: var(--cor1);
+    padding: 20px;
+}
+
+.background p {
+    text-align: center;
+    color: var(--cor1);
+}
+
+.activePopup.background{
     filter: blur(8px);
 }
 
@@ -168,7 +189,7 @@ header input:hover{
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%) scale(0);
     width: 80vw;
     height: 75vh;
     background-image: url(images/background.jpg);
@@ -178,7 +199,11 @@ header input:hover{
     border-radius: 10px;
     margin-top: 20px;
     display: flex;
-    overflow: hidden;
+    transition: transform .5s ease-in-out;
+}
+
+.activePopup#conteinerLoginRegister{
+    transform: translate(-50%,-50%) scale(1);
 }
 
 .iconClose{
@@ -443,6 +468,7 @@ header input:hover{
 
     #containerForm{
         width: 100%;
+        border-radius: 10px;
         backdrop-filter: blur(10px);
         transition: .3s;
     }
