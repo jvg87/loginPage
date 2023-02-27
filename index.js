@@ -29,6 +29,7 @@ const labelPasswordConfirm = document.querySelector('#labelPasswordConfirm')
 
 
 
+
 // NavBar
 mobileMenu.addEventListener('click', () =>{
     navigation.classList.toggle('showMenu')
@@ -99,16 +100,17 @@ faEyeConfirm.addEventListener('click', () => {
 usernameRegister.addEventListener('keyup', () => {
     if(usernameRegister.value === ''){
         usernameRegister.className = 'error'
-        //pegar icon
         labelUsernameRegister.setAttribute('style', 'color:red')
+        
+
     } else if(usernameRegister.value.length <= 3) {
         usernameRegister.className = 'error'
-        //pegar icon
         labelUsernameRegister.setAttribute('style', 'color:red')
+        
     } else {
-        usernameRegister.className = 'sucess'
-        //pegar icon    
+        usernameRegister.className = 'success'
         labelUsernameRegister.setAttribute('style', 'color:green')
+
     }
 })
 

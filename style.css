@@ -372,7 +372,7 @@ header input:hover{
     border-bottom: 2px solid red;
 }
 
-.inputBox input.sucess{
+.inputBox input.success{
     border-bottom: 2px solid green;
 }
 
@@ -392,19 +392,13 @@ header input:hover{
     line-height: 39px;
 }
 
-.icon .error{
-    color: red
-}
-
-.icon .sucess{
-    color: green
+.register .inputBox .icon.error{
+    color: red !important;
 }
 
 .fa-eye, .fa-eye-slash{
     cursor: pointer;
 }
-
-
 
 .remember{
     font-size: .9rem;
