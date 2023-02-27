@@ -20,7 +20,7 @@ const passwordConfirm = document.querySelector('#passwordConfirm')
 
 const form = document.querySelector('form')
 const formReg = document.querySelector('#formReg')
-// const register = document.querySelector('#register')
+
 const usernameRegister = document.querySelector('#usernameRegister')
 const labelUsernameRegister = document.querySelector('#labelUsernameRegister')
 const emailRegister = document.querySelector('#emailRegister')
@@ -28,10 +28,10 @@ const labelEmailRegister = document.querySelector('#labelEmailRegister')
 const labelPasswordRegister = document.querySelector('#labelPasswordRegister')
 const labelPasswordConfirm = document.querySelector('#labelPasswordConfirm')
 
-
-
-
-
+const emailLogin = document.querySelector('#emailLogin')
+const labelEmailLogin = document.querySelector('#labelEmailLogin')
+const labelPasswordLogin = document.querySelector('#labelPasswordLogin')
+const formLogin = document.querySelector('#formLogin')
 
 
 
@@ -103,82 +103,133 @@ formReg.addEventListener('submit', (ev) => {
 
     const inputBoxs = [...formReg.querySelectorAll('.inputBox')]
     const formValid = inputBoxs.every((inputBoxs) => inputBoxs.className === 'inputBox success')
+    
+    const termsCheck = document.querySelector('#termsCheck')
+    const labelCheck = document.querySelector('#labelTermsCheck')
+    const temrChecked = termsCheck.checked
+    
 
-    if(formValid){
-        alert('Deu bom')
+    if(!formValid && !temrChecked){
+        alert('Deu ruim total!!!')
+        labelCheck.setAttribute('style', 'color: red')
+    } else if (formValid && !temrChecked) {
+        labelCheck.setAttribute('style', 'color: red')
+        alert('Termos deu ruim')
     } else {
-        alert('Deu ruim!!!')
+        labelCheck.setAttribute('style', 'color: green')
+        alert('Deu bom!!')
+        listLocalStorage()
+        setTimeout(() => {
+            containerForm.classList.remove('active')
+        }, 3000)
+        listLocalStorage()
     }
+     //settimeout
+    // 
+    // usernameRegister.value === ''
+    // emailRegister.value === ''
+    // passwordRegister.value === ''
+    // passwordConfirm.value === ''
+    // termsCheck.unchecked
 })
 
-function inputKeyup(input){
-    input.addEventListener('keyup', () => {
-        
-    })
+function setError(input, message){
+    const inputBox = input.parentElement
+    const label = inputBox.querySelector('label')
+    inputBox.className = 'inputBox error'
+    label.innerHTML = message
+}
+
+function setSuccess(input, message){
+    const inputBox = input.parentElement
+    const label = inputBox.querySelector('label')
+    inputBox.className = 'inputBox success'
+    label.innerText = message
+}
+
+function listLocalStorage(){
+    let userList = JSON.parse(localStorage.getItem('userList') || '[]')
+    userList.push(
+        {
+            username: usernameRegister.value,
+            email: emailRegister.value,
+            password: passwordRegister.value
+        }
+    )
+    localStorage.setItem('userList', JSON.stringify(userList))
 }
 
 usernameRegister.addEventListener('keyup', () => {
-    const inputBox = usernameRegister.parentElement
     if(usernameRegister.value === ''){
-        inputBox.className = 'inputBox error'
-        labelUsernameRegister.innerHTML = 'Username* <small>Requeired Name</small>'
-
+        setError(usernameRegister, 'Username* <small>Requeired Name</small>')
     } else if(usernameRegister.value.length <= 3) {
-        inputBox.className = 'inputBox error'
-        labelUsernameRegister.innerHTML = 'Username* <small>At least 4 characters</small>'
+        setError(usernameRegister, 'Username* <small>At least 4 characters</small>')
     } else {
-        inputBox.className = 'inputBox success'
-        labelUsernameRegister.innerText = 'Username'
+        setSuccess(usernameRegister, 'Username')
     }
 })
 
 emailRegister.addEventListener('keyup', () => {
-    const inputBox = emailRegister.parentElement
     const validEmail = /\S+@\S+\.\S+/
     if(emailRegister.value === ''){
-        inputBox.className = 'inputBox error'
-        labelEmailRegister.innerHTML = 'Email* <small>Requeired Email</small>'
-
+        setError(emailRegister, 'Email* <small>Requeired Email</small>')
     } else if(emailRegister.value.search(validEmail) === -1) {
-        inputBox.className = 'inputBox error'
-        labelEmailRegister.innerHTML = 'Email* <small>Invalid email</small>'
+        setError(emailRegister,'Email* <small>Invalid email</small>' )
     } else {
-        inputBox.className = 'inputBox success'
-        labelEmailRegister.innerHTML = 'Email'
+        setSuccess(emailRegister, 'Email')
     }
 })
 
 passwordRegister.addEventListener('keyup', () => {
-    const inputBox = passwordRegister.parentElement
     if(passwordRegister.value === ''){
-        inputBox.className = 'inputBox error'
-        labelPasswordRegister.innerHTML = 'Password* <small>Requeired Password</small>'
+        setError(passwordRegister, 'Password* <small>Requeired Password</small>')
     } else if(passwordRegister.value.length <= 5) {
-        inputBox.className = 'inputBox error'
-        labelPasswordRegister.innerHTML = 'Password* <small>At least 6 characters</small>'
+        setError(passwordRegister, 'Password* <small>At least 6 characters</small>')
     } else {
-        inputBox.className = 'inputBox success'
-        labelPasswordRegister.innerHTML = 'Password'
+        setSuccess(passwordRegister, 'Password')
     }
 })
 
 passwordConfirm.addEventListener('keyup', () => {
-    const inputBox = passwordConfirm.parentElement
     if(passwordConfirm.value === ''){
-        inputBox.className = 'inputBox error'
-        labelPasswordConfirm.innerHTML = 'Password* <small>Requeired Password</small>'
+        setError(passwordConfirm, 'Password* <small>Requeired Password</small>')
     } else if(passwordConfirm.value !== passwordRegister.value) {
-        inputBox.className = 'inputBox error'
-        labelPasswordConfirm.innerHTML = 'Password* <small>Do not match</small>'
+        setError(passwordConfirm, 'Password* <small>Do not match</small>')
     } else {
-        inputBox.className = 'inputBox success'
-        labelPasswordConfirm.innerHTML = 'Password'
+        setSuccess(passwordConfirm, 'Password')
     }
 })
 
+// // Login Validation
 
+formLogin.addEventListener('submit', (ev) => {
+    ev.preventDefault()
 
-
+    const userList = JSON.parse(localStorage.getItem('userList'))
+    
+    let userListValid = {
+        username: '',
+        email: '',
+        password: ''
+    }
+    userList.map((e) => {
+        
+        if(emailLogin.value === e.email && passwordLogin.value === e.password){
+            userListValid = {
+                username: e.username,
+                email: e.email,
+                password: e.password
+            }
+        } 
+    })
+    console.log(userListValid)  
+    
+    if(userListValid.username !== emailLogin.value && userListValid.password !== passwordLogin.value){
+        console.log('usuário ou senha incorretos')
+    } else {
+        console.log('conectado')
+    }
+})
 
 
 
