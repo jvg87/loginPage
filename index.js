@@ -19,16 +19,15 @@ const faEyeConfirm = document.querySelector('#fa-eye-confirm')
 const passwordConfirm = document.querySelector('#passwordConfirm')
 
 const form = document.querySelector('form')
+const formReg = document.querySelector('#formReg')
+// const register = document.querySelector('#register')
 const usernameRegister = document.querySelector('#usernameRegister')
 const labelUsernameRegister = document.querySelector('#labelUsernameRegister')
 const emailRegister = document.querySelector('#emailRegister')
 const labelEmailRegister = document.querySelector('#labelEmailRegister')
 const labelPasswordRegister = document.querySelector('#labelPasswordRegister')
 const labelPasswordConfirm = document.querySelector('#labelPasswordConfirm')
-const nameReg = document.querySelector('.nameReg')
-const emailReg = document.querySelector('.emailReg')
-const passReg = document.querySelector('.passReg')
-const passConf = document.querySelector('.passConf')
+
 
 
 
@@ -99,82 +98,83 @@ faEyeConfirm.addEventListener('click', () => {
 
 // Register Validation
 
-// form.addEventListener('submit', (ev) => {
-//     ev.preventDefault()
-// })
+formReg.addEventListener('submit', (ev) => {
+    ev.preventDefault()
+
+    const inputBoxs = [...formReg.querySelectorAll('.inputBox')]
+    const formValid = inputBoxs.every((inputBoxs) => inputBoxs.className === 'inputBox success')
+
+    if(formValid){
+        alert('Deu bom')
+    } else {
+        alert('Deu ruim!!!')
+    }
+})
 
 usernameRegister.addEventListener('keyup', () => {
+    const inputBox = usernameRegister.parentElement
     if(usernameRegister.value === ''){
-        usernameRegister.className = 'error'
-        labelUsernameRegister.setAttribute('style', 'color:red')
-        nameReg.className = 'icon nameReg error'
+        inputBox.className = 'inputBox error'
+        labelUsernameRegister.innerHTML = 'Username* <small>Requeired Name</small>'
 
     } else if(usernameRegister.value.length <= 3) {
-        usernameRegister.className = 'error'
-        labelUsernameRegister.setAttribute('style', 'color:red')
-        nameReg.className = 'icon nameReg error'
+        inputBox.className = 'inputBox error'
+        labelUsernameRegister.innerHTML = 'Username* <small>At least 4 characters</small>'
     } else {
-        usernameRegister.className = 'success'
-        labelUsernameRegister.setAttribute('style', 'color:green')
-        nameReg.className = 'icon nameReg success'
+        inputBox.className = 'inputBox success'
+        labelUsernameRegister.innerText = 'Username'
     }
 })
 
 emailRegister.addEventListener('keyup', () => {
+    const inputBox = emailRegister.parentElement
+    const validEmail = /\S+@\S+\.\S+/
     if(emailRegister.value === ''){
-        emailRegister.className = 'error'
-        labelEmailRegister.setAttribute('style', 'color:red')
-        emailReg.className = 'icon emailReg error'
+        inputBox.className = 'inputBox error'
+        labelEmailRegister.innerHTML = 'Email* <small>Requeired Email</small>'
 
-    } else if(emailRegister.value.length <= 3) {
-        emailRegister.className = 'error'
-        labelEmailRegister.setAttribute('style', 'color:red')
-        emailReg.className = 'icon emailReg error'
+    } else if(emailRegister.value.search(validEmail) === -1) {
+        inputBox.className = 'inputBox error'
+        labelEmailRegister.innerHTML = 'Email* <small>Invalid email</small>'
     } else {
-        emailRegister.className = 'success'
-        labelEmailRegister.setAttribute('style', 'color:green')
-        emailReg.className = 'icon emailReg success'
+        inputBox.className = 'inputBox success'
+        labelEmailRegister.innerHTML = 'Email'
     }
 })
 
 passwordRegister.addEventListener('keyup', () => {
+    const inputBox = passwordRegister.parentElement
     if(passwordRegister.value === ''){
-        passwordRegister.className = 'error'
-        labelPasswordRegister.setAttribute('style', 'color:red')
-        passReg.className = 'icon passReg error'
-
-    } else if(passwordRegister.value.length <= 3) {
-        passwordRegister.className = 'error'
-        labelPasswordRegister.setAttribute('style', 'color:red')
-        passReg.className = 'icon passReg error'
+        inputBox.className = 'inputBox error'
+        labelPasswordRegister.innerHTML = 'Password* <small>Requeired Password</small>'
+    } else if(passwordRegister.value.length <= 5) {
+        inputBox.className = 'inputBox error'
+        labelPasswordRegister.innerHTML = 'Password* <small>At least 6 characters</small>'
     } else {
-        passwordRegister.className = 'success'
-        labelPasswordRegister.setAttribute('style', 'color:green')
-        passReg.className = 'icon passReg success'
+        inputBox.className = 'inputBox success'
+        labelPasswordRegister.innerHTML = 'Password'
     }
 })
 
 passwordConfirm.addEventListener('keyup', () => {
+    const inputBox = passwordConfirm.parentElement
     if(passwordConfirm.value === ''){
-        passwordConfirm.className = 'error'
-        labelPasswordConfirm.setAttribute('style', 'color:red')
-        passConf.className = 'icon passConf error'
-
-    } else if(passwordConfirm.value.length <= 3) {
-        passwordConfirm.className = 'error'
-        labelPasswordConfirm.setAttribute('style', 'color:red')
-        passConf.className = 'icon passConf error'
+        inputBox.className = 'inputBox error'
+        labelPasswordConfirm.innerHTML = 'Password* <small>Requeired Password</small>'
+    } else if(passwordConfirm.value !== passwordRegister.value) {
+        inputBox.className = 'inputBox error'
+        labelPasswordConfirm.innerHTML = 'Password* <small>Do not match</small>'
     } else {
-        passwordConfirm.className = 'success'
-        labelPasswordConfirm.setAttribute('style', 'color:green')
-        passConf.className = 'icon passConf success'
+        inputBox.className = 'inputBox success'
+        labelPasswordConfirm.innerHTML = 'Password'
     }
 })
 
 
 
-// function checkInput(){
-    
-// }
+
+
+
+
 
 
