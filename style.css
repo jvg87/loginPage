@@ -368,6 +368,14 @@ header input:hover{
     padding: 0 35px 0 5px;
 }
 
+.inputBox input.error{
+    border-bottom: 2px solid red;
+}
+
+.inputBox input.sucess{
+    border-bottom: 2px solid green;
+}
+
 .login .inputBox .icon{
     position: absolute;
     right: 8px;
@@ -384,9 +392,19 @@ header input:hover{
     line-height: 39px;
 }
 
+.icon .error{
+    color: red
+}
+
+.icon .sucess{
+    color: green
+}
+
 .fa-eye, .fa-eye-slash{
     cursor: pointer;
 }
+
+
 
 .remember{
     font-size: .9rem;
