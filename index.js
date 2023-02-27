@@ -25,6 +25,12 @@ const emailRegister = document.querySelector('#emailRegister')
 const labelEmailRegister = document.querySelector('#labelEmailRegister')
 const labelPasswordRegister = document.querySelector('#labelPasswordRegister')
 const labelPasswordConfirm = document.querySelector('#labelPasswordConfirm')
+const nameReg = document.querySelector('.nameReg')
+const emailReg = document.querySelector('.emailReg')
+const passReg = document.querySelector('.passReg')
+const passConf = document.querySelector('.passConf')
+
+
 
 
 
@@ -101,18 +107,71 @@ usernameRegister.addEventListener('keyup', () => {
     if(usernameRegister.value === ''){
         usernameRegister.className = 'error'
         labelUsernameRegister.setAttribute('style', 'color:red')
-        
+        nameReg.className = 'icon nameReg error'
 
     } else if(usernameRegister.value.length <= 3) {
         usernameRegister.className = 'error'
         labelUsernameRegister.setAttribute('style', 'color:red')
-        
+        nameReg.className = 'icon nameReg error'
     } else {
         usernameRegister.className = 'success'
         labelUsernameRegister.setAttribute('style', 'color:green')
-
+        nameReg.className = 'icon nameReg success'
     }
 })
+
+emailRegister.addEventListener('keyup', () => {
+    if(emailRegister.value === ''){
+        emailRegister.className = 'error'
+        labelEmailRegister.setAttribute('style', 'color:red')
+        emailReg.className = 'icon emailReg error'
+
+    } else if(emailRegister.value.length <= 3) {
+        emailRegister.className = 'error'
+        labelEmailRegister.setAttribute('style', 'color:red')
+        emailReg.className = 'icon emailReg error'
+    } else {
+        emailRegister.className = 'success'
+        labelEmailRegister.setAttribute('style', 'color:green')
+        emailReg.className = 'icon emailReg success'
+    }
+})
+
+passwordRegister.addEventListener('keyup', () => {
+    if(passwordRegister.value === ''){
+        passwordRegister.className = 'error'
+        labelPasswordRegister.setAttribute('style', 'color:red')
+        passReg.className = 'icon passReg error'
+
+    } else if(passwordRegister.value.length <= 3) {
+        passwordRegister.className = 'error'
+        labelPasswordRegister.setAttribute('style', 'color:red')
+        passReg.className = 'icon passReg error'
+    } else {
+        passwordRegister.className = 'success'
+        labelPasswordRegister.setAttribute('style', 'color:green')
+        passReg.className = 'icon passReg success'
+    }
+})
+
+passwordConfirm.addEventListener('keyup', () => {
+    if(passwordConfirm.value === ''){
+        passwordConfirm.className = 'error'
+        labelPasswordConfirm.setAttribute('style', 'color:red')
+        passConf.className = 'icon passConf error'
+
+    } else if(passwordConfirm.value.length <= 3) {
+        passwordConfirm.className = 'error'
+        labelPasswordConfirm.setAttribute('style', 'color:red')
+        passConf.className = 'icon passConf error'
+    } else {
+        passwordConfirm.className = 'success'
+        labelPasswordConfirm.setAttribute('style', 'color:green')
+        passConf.className = 'icon passConf success'
+    }
+})
+
+
 
 // function checkInput(){
     

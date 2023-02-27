@@ -392,8 +392,12 @@ header input:hover{
     line-height: 39px;
 }
 
-.register .inputBox .icon.error{
+.icon.error{
     color: red !important;
+}
+
+.icon.success{
+    color: green !important;
 }
 
 .fa-eye, .fa-eye-slash{
