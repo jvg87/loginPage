@@ -111,6 +111,12 @@ formReg.addEventListener('submit', (ev) => {
     }
 })
 
+function inputKeyup(input){
+    input.addEventListener('keyup', () => {
+        
+    })
+}
+
 usernameRegister.addEventListener('keyup', () => {
     const inputBox = usernameRegister.parentElement
     if(usernameRegister.value === ''){
