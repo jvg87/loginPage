@@ -33,6 +33,9 @@ const labelEmailLogin = document.querySelector('#labelEmailLogin')
 const labelPasswordLogin = document.querySelector('#labelPasswordLogin')
 const formLogin = document.querySelector('#formLogin')
 
+const boxInfo = document.querySelector('#boxInfo')
+const inputInfo = document.querySelector('#inputInfo')
+
 
 
 // NavBar
@@ -98,41 +101,6 @@ faEyeConfirm.addEventListener('click', () => {
 
 // Register Validation
 
-formReg.addEventListener('submit', (ev) => {
-    ev.preventDefault()
-
-    const inputBoxs = [...formReg.querySelectorAll('.inputBox')]
-    const formValid = inputBoxs.every((inputBoxs) => inputBoxs.className === 'inputBox success')
-    
-    const termsCheck = document.querySelector('#termsCheck')
-    const labelCheck = document.querySelector('#labelTermsCheck')
-    const temrChecked = termsCheck.checked
-    
-
-    if(!formValid && !temrChecked){
-        alert('Deu ruim total!!!')
-        labelCheck.setAttribute('style', 'color: red')
-    } else if (formValid && !temrChecked) {
-        labelCheck.setAttribute('style', 'color: red')
-        alert('Termos deu ruim')
-    } else {
-        labelCheck.setAttribute('style', 'color: green')
-        alert('Deu bom!!')
-        listLocalStorage()
-        setTimeout(() => {
-            containerForm.classList.remove('active')
-        }, 3000)
-        listLocalStorage()
-    }
-     //settimeout
-    // 
-    // usernameRegister.value === ''
-    // emailRegister.value === ''
-    // passwordRegister.value === ''
-    // passwordConfirm.value === ''
-    // termsCheck.unchecked
-})
-
 function setError(input, message){
     const inputBox = input.parentElement
     const label = inputBox.querySelector('label')
@@ -147,17 +115,51 @@ function setSuccess(input, message){
     label.innerText = message
 }
 
+function clearInput(input){
+    const inputBox = input.parentElement
+    inputBox.classList.remove('success')
+    input.value = ''
+}
+
 function listLocalStorage(){
     let userList = JSON.parse(localStorage.getItem('userList') || '[]')
     userList.push(
         {
-            username: usernameRegister.value,
-            email: emailRegister.value,
-            password: passwordRegister.value
+            usernameList: usernameRegister.value,
+            emailList: emailRegister.value,
+            passwordList: passwordRegister.value
         }
     )
     localStorage.setItem('userList', JSON.stringify(userList))
 }
+
+formReg.addEventListener('submit', (ev) => {
+    ev.preventDefault()
+
+    const inputBoxs = [...formReg.querySelectorAll('.inputBox')]
+    const formValid = inputBoxs.every((inputBoxs) => inputBoxs.className === 'inputBox success')
+    
+    const termsCheck = document.querySelector('#termsCheck')
+    const temrChecked = termsCheck.checked
+    
+    if(!formValid && !temrChecked){
+        alert('ERROR')
+        usernameRegister.focus()
+    } else if (formValid && !temrChecked) {
+        alert('Check the terms')
+    } else {
+        alert('Successfully Registricted!!')
+        listLocalStorage()
+        setTimeout(() => {
+            containerForm.classList.remove('active')
+            clearInput(usernameRegister)
+            clearInput(emailRegister)
+            clearInput(passwordRegister)
+            clearInput(passwordConfirm)
+            termsCheck.checked = false
+        }, 1000)
+    }
+})
 
 usernameRegister.addEventListener('keyup', () => {
     if(usernameRegister.value === ''){
@@ -205,30 +207,37 @@ passwordConfirm.addEventListener('keyup', () => {
 formLogin.addEventListener('submit', (ev) => {
     ev.preventDefault()
 
-    const userList = JSON.parse(localStorage.getItem('userList'))
+    let userList = []
     
-    let userListValid = {
-        username: '',
+    let users = { 
+        name: '', 
         email: '',
-        password: ''
+        password: '' 
     }
-    userList.map((e) => {
-        
-        if(emailLogin.value === e.email && passwordLogin.value === e.password){
-            userListValid = {
-                username: e.username,
-                email: e.email,
-                password: e.password
-            }
-        } 
-    })
-    console.log(userListValid)  
     
-    if(userListValid.username !== emailLogin.value && userListValid.password !== passwordLogin.value){
-        console.log('usuário ou senha incorretos')
+    userList = JSON.parse(localStorage.getItem('userList'))
+    userList.map((e) => {
+        if(emailLogin.value === e.emailList && passwordLogin.value === e.passwordList)
+        users = {
+            name: e.usernameList,
+            email: e.emailList,
+            password: e.passwordList
+        }
+    })
+
+    if(emailLogin.value === users.email && passwordLogin.value === users.password){
+        setSuccess(emailLogin, 'Email')
+        setSuccess(passwordLogin, 'Email')
+        alert('Conectado')
+        setTimeout(() => {
+            clearInput(emailLogin)
+            clearInput(passwordLogin)
+        }, 1000)
     } else {
-        console.log('conectado')
-    }
+        setError(emailLogin, 'Password')
+        setError(passwordLogin, 'Password')
+        alert('Usuário ou Senha Diferente')
+    }    
 })
 
 
