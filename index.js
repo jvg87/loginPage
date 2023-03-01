@@ -121,8 +121,8 @@ function clearInput(input){
     input.value = ''
 }
 
-function listLocalStorage(){
-    let userList = JSON.parse(localStorage.getItem('userList') || '[]')
+function listSessionStorage(){
+    let userList = JSON.parse(sessionStorage.getItem('userList') || '[]')
     userList.push(
         {
             usernameList: usernameRegister.value,
@@ -130,7 +130,7 @@ function listLocalStorage(){
             passwordList: passwordRegister.value
         }
     )
-    localStorage.setItem('userList', JSON.stringify(userList))
+    sessionStorage.setItem('userList', JSON.stringify(userList))
 }
 
 formReg.addEventListener('submit', (ev) => {
@@ -149,7 +149,7 @@ formReg.addEventListener('submit', (ev) => {
         alert('Check the terms')
     } else {
         alert('Successfully Registricted!!')
-        listLocalStorage()
+        listSessionStorage()
         setTimeout(() => {
             containerForm.classList.remove('active')
             clearInput(usernameRegister)
@@ -215,29 +215,39 @@ formLogin.addEventListener('submit', (ev) => {
         password: '' 
     }
     
-    userList = JSON.parse(localStorage.getItem('userList'))
-    userList.map((e) => {
-        if(emailLogin.value === e.emailList && passwordLogin.value === e.passwordList)
-        users = {
-            name: e.usernameList,
-            email: e.emailList,
-            password: e.passwordList
-        }
-    })
+    userList = JSON.parse(sessionStorage.getItem('userList'))
 
+    if (!Array.isArray(userList) && userList <= 0){
+        setError(emailLogin, 'Password')
+        setError(passwordLogin, 'Password')
+        alert('Unregistered User')
+        return   
+    } 
+    
+    userList.map((e) => {
+        if(emailLogin.value === e.emailList && passwordLogin.value === e.passwordList){
+            users = {
+                name: e.usernameList,
+                email: e.emailList,
+                password: e.passwordList
+            }
+        } 
+    })
     if(emailLogin.value === users.email && passwordLogin.value === users.password){
         setSuccess(emailLogin, 'Email')
         setSuccess(passwordLogin, 'Email')
-        alert('Conectado')
+        alert('Connected')
         setTimeout(() => {
+            conteinerLoginRegister.classList.remove('activePopup')
+            background.classList.remove('activePopup')
             clearInput(emailLogin)
             clearInput(passwordLogin)
         }, 1000)
     } else {
         setError(emailLogin, 'Password')
         setError(passwordLogin, 'Password')
-        alert('Usuário ou Senha Diferente')
-    }    
+        alert('Different User or Password')
+    }  
 })
 
 
